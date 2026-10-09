@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard de control — Entrega Final</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --border: #e4e7ec;
+    --ink: #1f2430;
+    --ink-muted: #5b6472;
+    --ink-faint: #8993a1;
+    --good: #1e8e5a;
+    --good-bg: #e3f6ec;
+    --warn: #b6790a;
+    --warn-bg: #fdf1dd;
+    --info: #2a5db0;
+    --info-bg: #e6eefb;
+    --crit: #b3261e;
+    --crit-bg: #fbe6e5;
+    --cat1: #4064b4; /* Generando */
+    --cat2: #b6790a; /* En revisión */
+    --cat3: #1e8e5a; /* Aprobado */
+    --cat4: #7a4ec4; /* Publicado */
+    --cat5: #b3261e; /* Rechazado */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171c;
+      --surface: #1c2027;
+      --border: #2b303a;
+      --ink: #eef0f3;
+      --ink-muted: #aab1bc;
+      --ink-faint: #7a828e;
+      --good-bg: #113425;
+      --warn-bg: #3a2a0d;
+      --info-bg: #182a44;
+      --crit-bg: #3a1917;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171c;
+    --surface: #1c2027;
+    --border: #2b303a;
+    --ink: #eef0f3;
+    --ink-muted: #aab1bc;
+    --ink-faint: #7a828e;
+    --good-bg: #113425;
+    --warn-bg: #3a2a0d;
+    --info-bg: #182a44;
+    --crit-bg: #3a1917;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  h1 { font-size: 1.3rem; margin: 0 0 4px; }
+  .sub { color: var(--ink-muted); font-size: 0.9rem; margin: 0 0 24px; }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .tile .label { color: var(--ink-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: .03em; }
+  .tile .value { font-size: 1.7rem; font-weight: 700; margin-top: 4px; }
+  .tile .value.good { color: var(--good); }
+  .tile .value.info { color: var(--info); }
+  .tile .value.warn { color: var(--warn); }
+  section { margin-bottom: 28px; }
+  h2 { font-size: 1rem; margin: 0 0 12px; }
+  .bars { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-label { width: 110px; font-size: 0.82rem; color: var(--ink-muted); flex-shrink: 0; }
+  .bar-track { flex: 1; background: var(--bg); border-radius: 6px; height: 18px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 6px; }
+  .bar-count { width: 28px; text-align: right; font-size: 0.82rem; font-weight: 600; flex-shrink: 0; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 0.85rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--ink-muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .03em; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.76rem; font-weight: 600; }
+  .badge.good { background: var(--good-bg); color: var(--good); }
+  .badge.crit { background: var(--crit-bg); color: var(--crit); }
+  footer { color: var(--ink-faint); font-size: 0.76rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Dashboard de control — Ecosistema de contenido clínica</h1>
+  <p class="sub">Datos reales tomados de la base de Notion "Centro de Comando — Contenido Clínica" el 9/10/2026.</p>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="label">Ideas totales</div>
+      <div class="value info">13</div>
+    </div>
+    <div class="tile">
+      <div class="label">Publicadas</div>
+      <div class="value good">5</div>
+    </div>
+    <div class="tile">
+      <div class="label">En revisión</div>
+      <div class="value warn">7</div>
+    </div>
+    <div class="tile">
+      <div class="label">Pruebas en vivo</div>
+      <div class="value info">5 / 5</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Ideas por estado</h2>
+    <div class="bars">
+      <div class="bar-row">
+        <div class="bar-label">En revisión</div>
+        <div class="bar-track"><div class="bar-fill" style="width:54%; background:var(--cat2);"></div></div>
+        <div class="bar-count">7</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Publicado</div>
+        <div class="bar-track"><div class="bar-fill" style="width:38%; background:var(--cat4);"></div></div>
+        <div class="bar-count">5</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Aprobado</div>
+        <div class="bar-track"><div class="bar-fill" style="width:8%; background:var(--cat3);"></div></div>
+        <div class="bar-count">1</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pruebas en vivo ejecutadas</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Idea</th><th>Tipo de prueba</th><th>Resultado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Beneficios de dormir bien</td><td>Circuito normal</td><td><span class="badge good">Publicado</span></td></tr>
+        <tr><td>2</td><td>Prueba definitiva post módulo 16</td><td>Circuito con doble IA (OpenAI + Claude)</td><td><span class="badge good">Publicado</span></td></tr>
+        <tr><td>3</td><td>Ventajas de vacunarse...</td><td>Circuito normal</td><td><span class="badge good">Publicado</span></td></tr>
+        <tr><td>4</td><td>Consejos de hidratación...</td><td>Circuito normal</td><td><span class="badge good">Publicado</span></td></tr>
+        <tr><td>5</td><td>Camino infeliz (campo vacío)</td><td>Error forzado a propósito</td><td><span class="badge crit">Error controlado</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>Este dashboard es una foto fija tomada de datos reales de Notion, armada para la entrega del curso. No se actualiza solo.</footer>
+</div>
+</body>
+</html>
