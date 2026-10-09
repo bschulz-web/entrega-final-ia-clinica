@@ -34,3 +34,6 @@ Ninguna publicación sale a Slack sin que una persona apruebe el borrador tildan
 ## Pruebas en vivo
 
 5 pruebas reales ejecutadas y verificadas contra la base de datos real (ver `/screenshots` y `04_seguridad_y_resiliencia.md`), incluyendo un camino infeliz con un error forzado a propósito.
+## Video demo
+
+https://1drv.ms/v/c/138e1203b8da5841/IQBzduu2WmBZSp1DXmVEr4nxAfRB8C4hEw9PbbYRt8EokMs?e=Ufb8bZ
